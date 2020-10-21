@@ -1,34 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import summaryStatsAPI from '../../utils/mockAPI';
+import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table'
 
 const EmployeeRows = (props) => {
-    const { headers } = props
+    const { headers, data } = props
 
-    const [empList, setEmpList] = useState([]);
+    const [empList, setEmpList] = useState(data);
 
-    useEffect(() => {
-        summaryStatsAPI.then((data) => {
-            setEmpList(data)
+    const sortByColumn = (col) => {
+        let sortedTable = [...empList]
+        sortedTable.sort((a, b) => {
+            if (a[col] < b[col]) {
+                return -1;
+            }
+            if (a[col] > b[col]) {
+                return 1;
+            }
+            return 0
         })
-    }, []);
-
-    console.log(props.headers)
-
-    let renderProductRow
-    if (empList) {
-        renderProductRow = empList.map((emp, index) => (
-            <tr key={index}>
-                <td>{emp.f_name}</td>
-                <td>{emp.l_name}</td>
-                <td>{emp.phone}</td>
-                <td>{emp.email}</td>
-                <td>{emp.role}</td>
-                <td>{emp.online}</td>
-            </tr>
-        ))
-    } else {
-        renderProductRow = 'Loading...'
+        setEmpList(sortedTable)
     }
 
   return (
@@ -37,12 +26,21 @@ const EmployeeRows = (props) => {
         <thead>
             <tr>
             {headers.map((head) => (
-                <th>{head}</th>
+                <th onClick={() => {sortByColumn(head[1])}}>{head[0]}</th>
             ))}
             </tr>
         </thead>
         <tbody>
-            {renderProductRow}
+            {empList.map((emp, index) => (
+                <tr key={index}>
+                    <td>{emp.f_name}</td>
+                    <td>{emp.l_name}</td>
+                    <td>{emp.phone}</td>
+                    <td>{emp.email}</td>
+                    <td>{emp.role}</td>
+                    <td>{emp.online}</td>
+                </tr>
+            ))}
         </tbody>
         </Table>
     )
