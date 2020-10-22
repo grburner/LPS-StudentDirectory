@@ -1,14 +1,16 @@
 import React, { useContext, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import ListContext from '../../utils/ListContext';
+import TableContext from '../../utils/TableContext';
 
-const EmployeeRows = ({ headers, changeData }) => {
-    const { list } = useContext(ListContext)
-    //const [empList, setEmpList] = useState(list);
+const EmployeeRows = () => {
+    const tableCtx = useContext(TableContext)
     const [sortObj, setsortObj] = useState({direction: 'asc', key: 'f_name'});
+    // console.log(tableCtx.tableHeaders)
+    console.log(tableCtx.list)
+    const headers = [["First Name", "f_name"], ["Last Name", "l_name"], ["Phone", "phone"], ["Email", "email"], ["Role", "role"], ["Online", "online"]]
 
     const resetTableSort = () => {
-        let sortedTable = [...list]
+        let sortedTable = [...tableCtx.list]
         sortedTable.sort((a, b) => {
             if (a[sortObj.key] < b[sortObj.key]) {
                 return sortObj.direction === 'asc' ? -1 : 1;
@@ -18,7 +20,7 @@ const EmployeeRows = ({ headers, changeData }) => {
             }
             return 0
         })
-        changeData(sortedTable)
+        tableCtx.setData(sortedTable)
     }
 
     const sortByColumn = key => {
@@ -41,7 +43,7 @@ const EmployeeRows = ({ headers, changeData }) => {
             </tr>
         </thead>
         <tbody>
-            {list.map((emp, index) => (
+            {tableCtx.list.map((emp, index) => (
                 <tr key={index}>
                     <td>{emp.f_name}</td>
                     <td>{emp.l_name}</td>

@@ -1,4 +1,4 @@
-const summaryStatsAPI = new Promise(function(resolve) {
+export const summaryStatsAPI = new Promise(function(resolve) {
     resolve(
       [
         {'f_name': 'Gary', 'l_name': 'Burner', 'phone': '555-555-5555', 'email': 'gary@pennLPS.com', 'role': 'student', 'online': true},
@@ -13,5 +13,3 @@ const summaryStatsAPI = new Promise(function(resolve) {
       ]
     );
   });
-
-  export default summaryStatsAPI;

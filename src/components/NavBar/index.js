@@ -5,24 +5,25 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import ListContext from '../../utils/ListContext';
+import TableContext from '../../utils/TableContext';
 
 
-const EmpNavBar = ({ changeData, resetData }) => {
-    const { list } = useContext(ListContext)
+const EmpNavBar = () => {
+    const tableCtx = useContext(TableContext)
     const [search, setSearch] = useState('');
 
     const updateSearch = e => {
-        resetData()
+        tableCtx.resetData()
         const { value } = e.target;
         setSearch(value)
     }
 
     useEffect(() => {
-        const retSearch = "" ? list : list.filter(({f_name}) => (
+        console.log('search' + search)
+        const retSearch = "" ? tableCtx.list : tableCtx.list.filter(({f_name}) => (
             f_name.toLowerCase().indexOf(search.toLowerCase()) >= 0
         ))
-        changeData(retSearch)
+        tableCtx.setData(retSearch)
     }, [search])
 
     return (
