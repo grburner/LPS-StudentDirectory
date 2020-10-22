@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table'
+import React, { useContext, useState } from 'react';
+import Table from 'react-bootstrap/Table';
+import ListContext from '../../utils/ListContext';
 
-const EmployeeRows = (props) => {
-    const { headers, data } = props;
-
-    const [empList, setEmpList] = useState(data);
-    const [sortObj, setsortObj] = useState({direction: 'asc', key: 'f_name'})
+const EmployeeRows = ({ headers }) => {
+    const { list } = useContext(ListContext)
+    const [empList, setEmpList] = useState(list);
+    const [sortObj, setsortObj] = useState({direction: 'asc', key: 'f_name'});
 
     const resetTableSort = () => {
         let sortedTable = [...empList]
@@ -27,9 +27,9 @@ const EmployeeRows = (props) => {
             direction = 'dsc'
         }
         setsortObj({ key, direction });
-        resetTableSort(sortObj.key)
+        resetTableSort(sortObj.key);
     }
-
+    
   return (
         <Table striped bordered hover size="sm">
         <caption>Penn LPS Web Development Roster</caption>

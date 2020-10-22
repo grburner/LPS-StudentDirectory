@@ -1,9 +1,8 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-
 import EmpNavBar from '../NavBar';
 import EmployeeGrid from '../EmployeeGrid';
+import ListContext from '../../utils/ListContext';
 
 const Home = () => {
 
@@ -20,12 +19,23 @@ const Home = () => {
             {'f_name': 'Vince', 'l_name': 'Gubitosi', 'phone': '555-555-5555', 'email': 'vince@pennLPS.com', 'role': 'TA', 'online': true},
           ]
 
+    const [list, setList] = useState({list: summaryStatsAPI});
+
     const tableHeaders = [["First Name", "f_name"], ["Last Name", "l_name"], ["Phone", "phone"], ["Email", "email"], ["Role", "role"], ["Online", "online"]]
+
+    function setData(data) {
+        console.log(data)
+        setList({
+            list: data
+        })
+    }
     
     return (
         <Container>
-            <EmpNavBar></EmpNavBar>
-            <EmployeeGrid headers={tableHeaders} data={summaryStatsAPI}></EmployeeGrid>
+            <ListContext.Provider value={list}>
+                <EmpNavBar data={summaryStatsAPI} changeData={setData}></EmpNavBar>
+                <EmployeeGrid headers={tableHeaders} data={summaryStatsAPI} changeData={setData}></EmployeeGrid>
+            </ListContext.Provider>
         </Container>
     )
 }
