@@ -48,7 +48,7 @@ const EmployeeRows = ({ headers, changeData }) => {
                     <td>{emp.phone}</td>
                     <td>{emp.email}</td>
                     <td>{emp.role}</td>
-                    <td>{emp.online}</td>
+                    <td>{emp.online ? "Y" : "N"}</td>
                 </tr>
             ))}
         </tbody>

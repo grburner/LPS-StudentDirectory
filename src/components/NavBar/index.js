@@ -27,14 +27,9 @@ const EmpNavBar = ({ changeData, resetData }) => {
 
     return (
         <Navbar className="bg-light justify-content-between">
-        <Form inline>
-            <InputGroup>
-                <Button>Reset</Button>
-            </InputGroup>
-        </Form>
+        <h2>Penn LPS Roster</h2>
         <Form inline>
             <FormControl type="text" placeholder="Search" className=" mr-sm-2" onChange={e => {updateSearch(e)}}/>
-            <Button type="submit">Search</Button>
         </Form>
         </Navbar>
     )
