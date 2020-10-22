@@ -8,17 +8,18 @@ import Button from 'react-bootstrap/Button';
 import ListContext from '../../utils/ListContext';
 
 
-const EmpNavBar = ({ changeData }) => {
+const EmpNavBar = ({ changeData, resetData }) => {
     const { list } = useContext(ListContext)
     const [search, setSearch] = useState('');
 
     const updateSearch = e => {
+        resetData()
         const { value } = e.target;
         setSearch(value)
     }
 
     useEffect(() => {
-        const retSearch = !search ? list : list.filter(({f_name}) => (
+        const retSearch = "" ? list : list.filter(({f_name}) => (
             f_name.toLowerCase().indexOf(search.toLowerCase()) >= 0
         ))
         changeData(retSearch)

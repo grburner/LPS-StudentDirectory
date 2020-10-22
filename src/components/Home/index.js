@@ -29,11 +29,18 @@ const Home = () => {
             list: data
         })
     }
+
+    function resetData() {
+        console.log('into reset Data')
+        setList({
+            list: summaryStatsAPI
+        })
+    }
     
     return (
         <Container>
             <ListContext.Provider value={list}>
-                <EmpNavBar data={summaryStatsAPI} changeData={setData}></EmpNavBar>
+                <EmpNavBar data={summaryStatsAPI} changeData={setData} resetData={resetData}></EmpNavBar>
                 <EmployeeGrid headers={tableHeaders} data={summaryStatsAPI} changeData={setData}></EmployeeGrid>
             </ListContext.Provider>
         </Container>
