@@ -2,13 +2,13 @@ import React, { useContext, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import ListContext from '../../utils/ListContext';
 
-const EmployeeRows = ({ headers }) => {
+const EmployeeRows = ({ headers, changeData }) => {
     const { list } = useContext(ListContext)
-    const [empList, setEmpList] = useState(list);
+    //const [empList, setEmpList] = useState(list);
     const [sortObj, setsortObj] = useState({direction: 'asc', key: 'f_name'});
 
     const resetTableSort = () => {
-        let sortedTable = [...empList]
+        let sortedTable = [...list]
         sortedTable.sort((a, b) => {
             if (a[sortObj.key] < b[sortObj.key]) {
                 return sortObj.direction === 'asc' ? -1 : 1;
@@ -18,7 +18,7 @@ const EmployeeRows = ({ headers }) => {
             }
             return 0
         })
-        setEmpList(sortedTable)
+        changeData(sortedTable)
     }
 
     const sortByColumn = key => {
@@ -41,7 +41,7 @@ const EmployeeRows = ({ headers }) => {
             </tr>
         </thead>
         <tbody>
-            {empList.map((emp, index) => (
+            {list.map((emp, index) => (
                 <tr key={index}>
                     <td>{emp.f_name}</td>
                     <td>{emp.l_name}</td>
